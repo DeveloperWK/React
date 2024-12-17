@@ -1,8 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 import { db } from "./Firebase/firebaseConfig";
-import AddUser from "./pages/AddUser";
-import Users from "./pages/Users";
+import SignupForm from "./pages/SignupForm";
 
 function App() {
   const userRef = collection(db, "users");
@@ -20,13 +19,11 @@ function App() {
     };
 
     getUsers();
-    console.log("users", getUsers());
   }, []);
 
   return (
     <>
-     <Users />
-      <AddUser />
+      <SignupForm />
     </>
   );
 }
