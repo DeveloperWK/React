@@ -1,10 +1,12 @@
 import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { db } from "./Firebase/firebaseConfig";
 import SignupForm from "./pages/SignupForm";
 
 function App() {
+  const [user, setUser] = useState([]);
   const userRef = collection(db, "users");
+
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(userRef);
@@ -15,15 +17,15 @@ function App() {
           id: doc.id,
         };
       });
-      return filterData;
+      setUser(filterData);
     };
-
     getUsers();
   }, []);
 
   return (
     <>
       <SignupForm />
+      {user && user.map((user) => <p>{user.email}</p>)}
     </>
   );
 }
