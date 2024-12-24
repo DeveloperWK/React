@@ -1,10 +1,14 @@
 import { createBrowserRouter } from "react-router";
+import ProtectedAdminRoute from "../Components/ProtectedAdminRoute";
 import AddProduct from "../Pages/AddProduct";
+import AllProducts from "../Pages/AllProducts";
 import Error from "../Pages/Error";
+import Products from "../Pages/Home";
 import Login from "../Pages/Login";
-import Products from "../Pages/Products";
+import Product from "../Pages/Product";
 import Root from "../Pages/Root";
 import Signup from "../Pages/Signup";
+import EditProduct from "../Components/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <div>Home</div>,
+        element: <Products />,
       },
       {
         path: "/signup",
@@ -25,12 +29,32 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/addproduct",
-        element: <AddProduct />,
+        path: "/add-product",
+        element: (
+          <ProtectedAdminRoute>
+            <AddProduct />
+          </ProtectedAdminRoute>
+        ),
       },
       {
-        path: "/product",
-        element: <Products />,
+        path: "/products/:id",
+        element: <Product />,
+      },
+      {
+        path: "/all-products",
+        element: (
+          <ProtectedAdminRoute>
+            <AllProducts />
+          </ProtectedAdminRoute>
+        ),
+      },
+      {
+        path: `/edit-product/:id`,
+        element: (
+          <ProtectedAdminRoute>
+          <EditProduct />
+          </ProtectedAdminRoute>
+        ),
       },
     ],
   },

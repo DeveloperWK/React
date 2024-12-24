@@ -1,5 +1,6 @@
 import { Button, FileInput, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useAddProductsMutation } from "../Features/firebaseApiSlice";
 
@@ -10,13 +11,18 @@ const AddProduct = () => {
     price: "",
     description: "",
     image: "",
+    category: "",
+    stock: "",
+    tags: "",
   });
-
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddProduct({
       ...addProduct,
       [e.target.name]:
-        e.target.name === "price" ? Number(e.target.value) : e.target.value,
+        e.target.name === "price" || e.target.name === "stock"
+          ? Number(e.target.value)
+          : e.target.value,
     });
   };
 
@@ -44,7 +50,7 @@ const AddProduct = () => {
     }
     await addProducts(addProduct); // call the mutation
     toast.success("Product Added Successfully");
-    console.log("hello");
+    navigate("/");
   };
   return (
     <section>
@@ -92,6 +98,45 @@ const AddProduct = () => {
           />
         </div>
         <div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="small" value="Product Category" />
+            </div>
+            <TextInput
+              id="small"
+              type="text"
+              sizing="sm"
+              name="category"
+              value={addProduct.category}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="small" value="Product Stock" />
+            </div>
+            <TextInput
+              id="small"
+              type="number"
+              sizing="sm"
+              name="stock"
+              value={addProduct.stock}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="small" value="Product Tags" />
+            </div>
+            <TextInput
+              id="small"
+              type="text"
+              sizing="sm"
+              name="tags"
+              value={addProduct.tags}
+              onChange={handleChange}
+            />
+          </div>
           <div className="mb-2 block">
             <Label htmlFor="file-upload" value="Upload file" />
           </div>
