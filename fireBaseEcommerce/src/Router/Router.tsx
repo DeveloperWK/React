@@ -1,14 +1,18 @@
 import { createBrowserRouter } from "react-router";
+import EditProduct from "../Components/EditProduct";
 import ProtectedAdminRoute from "../Components/ProtectedAdminRoute";
+import ProtectedUserRoute from "../Components/ProtectedUserRoute";
 import AddProduct from "../Pages/AddProduct";
 import AllProducts from "../Pages/AllProducts";
+import Cart from "../Pages/Cart";
+import CheckOut from "../Pages/CheckOut";
 import Error from "../Pages/Error";
 import Products from "../Pages/Home";
 import Login from "../Pages/Login";
 import Product from "../Pages/Product";
 import Root from "../Pages/Root";
 import Signup from "../Pages/Signup";
-import EditProduct from "../Components/EditProduct";
+import Users from "../Pages/Users";
 
 const router = createBrowserRouter([
   {
@@ -52,8 +56,34 @@ const router = createBrowserRouter([
         path: `/edit-product/:id`,
         element: (
           <ProtectedAdminRoute>
-          <EditProduct />
+            <EditProduct />
           </ProtectedAdminRoute>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedUserRoute>
+            <Cart />
+          </ProtectedUserRoute>
+        ),
+      },
+      {
+        path: "/users",
+
+        element: (
+          <ProtectedAdminRoute>
+            <Users />
+          </ProtectedAdminRoute>
+        ),
+      },
+      {
+        path: "/cart/checkout",
+
+        element: (
+          <ProtectedUserRoute>
+            <CheckOut />
+          </ProtectedUserRoute>
         ),
       },
     ],

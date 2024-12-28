@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, Label, TextInput } from "flowbite-react";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import CustomButton from "../Components/CustomButton";
 import { auth } from "../Firebase/firebase.config";
 
 const Login = () => {
@@ -66,10 +67,9 @@ const Login = () => {
         </div>
         {isLoading && toast.info("Loading...")}
         <button type="submit" disabled={isLoading}>
-          <Button color="success">Login</Button>
+          <CustomButton color={"purple"}>Login </CustomButton>
         </button>
         {error && toast.error(error)}
-        {/* <CustomButton color={"green"} content={"Register"} /> */}
       </form>
     </section>
   );
