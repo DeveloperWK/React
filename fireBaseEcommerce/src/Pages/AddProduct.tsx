@@ -1,7 +1,7 @@
-import { Button, FileInput, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import ProductForm from "../Components/ProductForm";
 import { useAddProductsMutation } from "../Features/firebaseApiSlice";
 
 const AddProduct = () => {
@@ -54,99 +54,15 @@ const AddProduct = () => {
   };
   return (
     <section>
-      <form
-        className="flex max-w-md flex-col gap-4 m-auto h-screen mt-5"
-        onSubmit={submitHandler}
-      >
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="small" value="Product Title" />
-          </div>
-          <TextInput
-            id="small"
-            type="text"
-            sizing="sm"
-            name="title"
-            value={addProduct.title}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="small" value="Product Price" />
-          </div>
-          <TextInput
-            id="small"
-            type="number"
-            sizing="sm"
-            name="price"
-            value={addProduct.price}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="small" value="Product Description" />
-          </div>
-          <TextInput
-            id="large"
-            type="text"
-            sizing="lg"
-            name="description"
-            value={addProduct.description}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="small" value="Product Category" />
-            </div>
-            <TextInput
-              id="small"
-              type="text"
-              sizing="sm"
-              name="category"
-              value={addProduct.category}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="small" value="Product Stock" />
-            </div>
-            <TextInput
-              id="small"
-              type="number"
-              sizing="sm"
-              name="stock"
-              value={addProduct.stock}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="small" value="Product Tags" />
-            </div>
-            <TextInput
-              id="small"
-              type="text"
-              sizing="sm"
-              name="tags"
-              value={addProduct.tags}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-2 block">
-            <Label htmlFor="file-upload" value="Upload file" />
-          </div>
-          <FileInput id="file-upload" onChange={handleImageChange} />
-        </div>
-        <button>
-          <Button color="green">Add Product</Button>
-        </button>
-        {/* <CustomButton color={"green"} content={"Add Product"} /> */}
-      </form>
+      <ProductForm
+        props={{
+          addProduct,
+          handleChange,
+          handleImageChange,
+          submitHandler,
+          buttonText: "Add Product",
+        }}
+      />
     </section>
   );
 };

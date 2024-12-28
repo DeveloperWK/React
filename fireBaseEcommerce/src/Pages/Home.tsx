@@ -5,7 +5,15 @@ import { useGetProductsQuery } from "../Features/firebaseApiSlice";
 
 const Products = () => {
   const { data, isLoading, isError, error } = useGetProductsQuery({}); // get products from API
-
+  if (data?.length === 0) {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold text-center text-red-600">
+          No Products Found
+        </h1>
+      </div>
+    );
+  }
   return (
     <>
       <section className="flex gap-5 p-5">

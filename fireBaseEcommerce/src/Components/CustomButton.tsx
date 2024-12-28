@@ -1,12 +1,13 @@
 import { Button } from "flowbite-react";
+import { ReactNode } from 'react';
 
-const CustomButton: React.FC<{ color: string; content: string }> = ({
-  color,
-  content,
-}) => {
+const CustomButton: React.FC<{
+  color: string;
+  children: ReactNode;
+}> = ({ color, children }) => {
   return (
     <>
-      <Button color={color}>{content}</Button>
+      <Button color={color}>{children}</Button>
     </>
   );
 };

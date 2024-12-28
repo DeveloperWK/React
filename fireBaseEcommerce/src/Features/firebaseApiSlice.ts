@@ -73,6 +73,21 @@ const firebaseApiSlice = createApi({
       },
       invalidatesTags: ["AddProduct"],
     }),
+    getUsers: builder.query({
+      queryFn: async () => {
+        try {
+          const usersCollectionRef = collection(db, "users");
+          const data = await getDocs(usersCollectionRef);
+          const filteredData = data.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          return { data: filteredData, error: undefined };
+        } catch (error) {
+          return { data: [], error: error.message };
+        }
+      },
+    }),
   }),
 });
 // createApi
@@ -81,5 +96,6 @@ export const {
   useAddProductsMutation,
   useGetProductQuery,
   useDeleteProductMutation,
+  useGetUsersQuery,
 } = firebaseApiSlice;
 export default firebaseApiSlice;

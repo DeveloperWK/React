@@ -1,9 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import CustomButton from "../Components/CustomButton";
 import { auth, db } from "../Firebase/firebase.config";
 
 const Signup = () => {
@@ -23,7 +24,11 @@ const Signup = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, user.email, user.password);
-      await setDoc(doc(db, "users", auth.currentUser?.uid), {
+      const userId = auth.currentUser?.uid;
+      if (!userId) {
+        throw new Error("User ID is undefined. Please try again.");
+      }
+      await setDoc(doc(db, "users", userId), {
         email: user.email,
         password: user.password,
         role: "user",
@@ -71,13 +76,11 @@ const Signup = () => {
         </div>
         {!isLoading && (
           <button type="submit" disabled={isLoading}>
-            <Button color="success">Sign up</Button>
+            <CustomButton color={"success"}> Sign Up </CustomButton>
           </button>
         )}
         {isLoading && toast.info("User is creating...")}
         {error && toast.error(error)}
-
-        {/* <CustomButton color={"green"} content={"Register"} /> */}
       </form>
     </section>
   );

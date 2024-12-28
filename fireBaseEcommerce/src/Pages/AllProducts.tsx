@@ -5,11 +5,31 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from "../Features/firebaseApiSlice";
+interface Product {
+  id: string;
+  image: string;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  stock: number;
+  tags: string;
+}
 
 const AllProducts = () => {
-  const { data, isLoading, isError, error, refetch } = useGetProductsQuery({});
+  const { data, isLoading, isError, error } = useGetProductsQuery(
+    {},
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  ) as ReturnType<typeof useGetProductsQuery>;
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [data]);
   const [
     deleteProduct,
+
     {
       isLoading: isDeleting,
       isError: isDeletingError,
@@ -31,23 +51,23 @@ const AllProducts = () => {
     );
   }
 
-  const deleteHandler = (deleteId) => {
+  const deleteHandler = (deleteId: string) => {
     deleteProduct(deleteId);
   };
-  const editHandler = (editId) => {
+  const editHandler = (editId: string) => {
     console.log(editId);
     navigate(`/edit-product/${editId}`);
   };
   if (isDeleting) return toast.info("Deleting...");
   if (isDeletingError) return toast.error(deletingError.message);
   if (deleteSuccess) return toast.success("Product Deleted Successfully");
-
+  // Aikhan Ar Product ase nh Akbar akta remove korle
   return (
     <>
       <section className="container border border-gray-400  rounded-lg p-4 w-3/4 mx-auto mt-4 shadow bg-gray-100">
         {!isLoading &&
           !isError &&
-          data?.map((product) => (
+          data?.map((product: Product) => (
             <div
               className="product__container flex justify-between items-center pb-3"
               key={product.id}
