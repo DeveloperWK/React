@@ -38,10 +38,19 @@ const Signup = () => {
       navigate("/");
       toast.success("User created successfully");
     } catch (error) {
-      setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
       setIsLoading(false);
     }
   };
+  if (error) {
+    toast.error(error);
+    setError("");
+  }
+  // Aikhan
   return (
     <section className="m-auto mt-10 max-w-md">
       <form className="flex max-w-md flex-col gap-4" onSubmit={submitHandler}>
@@ -80,7 +89,7 @@ const Signup = () => {
           </button>
         )}
         {isLoading && toast.info("User is creating...")}
-        {error && toast.error(error)}
+        {}
       </form>
     </section>
   );

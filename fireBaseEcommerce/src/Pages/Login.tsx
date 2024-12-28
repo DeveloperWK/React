@@ -8,7 +8,7 @@ import { auth } from "../Firebase/firebase.config";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -23,13 +23,13 @@ const Login = () => {
       if (res) {
         toast.success("Login Successfully");
         setIsLoading(false);
-        setError("");
+        setErrorMessage("");
         navigate("/");
       }
     } catch (error) {
-      setError("Invalid email or password", error.message);
+      setErrorMessage(`Invalid email or password  </br> ${(error as Error).message}`);
       setIsLoading(false);
-      toast.error("Invalid email or password");
+      toast.error(errorMessage);
     }
   };
 
@@ -69,7 +69,7 @@ const Login = () => {
         <button type="submit" disabled={isLoading}>
           <CustomButton color={"purple"}>Login </CustomButton>
         </button>
-        {error && toast.error(error)}
+
       </form>
     </section>
   );

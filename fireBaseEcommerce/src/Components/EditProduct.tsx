@@ -10,16 +10,16 @@ const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isError, error, isSuccess } = useGetProductQuery(
-    id
+    id ?? ""
   ) as ReturnType<typeof useGetProductQuery>;
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   const [editProduct, setEditProduct] = useState({
     title: "",
-    price: "",
+    price: 0,
     description: "",
     image: "",
     category: "",
-    stock: "",
+    stock: 0,
     tags: "",
   });
   const [isImageLoading, setIsImageLoading] = useState(false);

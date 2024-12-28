@@ -4,7 +4,9 @@ import { toast } from "react-toastify";
 import { useGetProductsQuery } from "../Features/firebaseApiSlice";
 
 const Products = () => {
-  const { data, isLoading, isError, error } = useGetProductsQuery({}); // get products from API
+  const { data, isLoading, isError, error } = useGetProductsQuery(
+    {}
+  ) as ReturnType<typeof useGetProductsQuery>; // get products from API
   if (data?.length === 0) {
     return (
       <div>
@@ -14,15 +16,25 @@ const Products = () => {
       </div>
     );
   }
+  interface Product {
+    id: string;
+    image: string;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    stock: number;
+    tags: string;
+  }
   return (
     <>
       <section className="flex gap-5 p-5">
         {isLoading && toast.info("Loading...")}
-        {isError && toast.error(error.message)}
+        {isError && toast.error((error as Error).message)}
         {!isLoading &&
           !isError &&
           data &&
-          data.map((product) => (
+          data.map((product: Product) => (
             <Card key={product.id} className="max-w-sm h-30">
               <img src={product.image} alt={product.title} className="h-40" />
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -36,7 +48,7 @@ const Products = () => {
                   View Details
                   <svg
                     className="-mr-1 ml-2 h-4 w-4"
-                    fill="currentColor"
+                    fill="</section>currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
                   >

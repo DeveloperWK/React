@@ -23,9 +23,9 @@ const firebaseApiSlice = createApi({
             id: doc.id,
             ...doc.data(),
           }));
-          return { data: filteredData, error: undefined };
+          return { data: filteredData, error: undefined, meta: {} };
         } catch (error) {
-          return { data: [], error: error.message };
+          return { data: [], error: error as unknown as undefined, meta: {} };
         }
       },
       providesTags: ["AddProduct"],
@@ -46,7 +46,7 @@ const firebaseApiSlice = createApi({
             return { error: "Document not found" };
           }
         } catch (error) {
-          return { error: error.message };
+          return { error: (error as Error).message };
         }
       },
       providesTags: ["AddProduct"],
@@ -82,9 +82,9 @@ const firebaseApiSlice = createApi({
             id: doc.id,
             ...doc.data(),
           }));
-          return { data: filteredData, error: undefined };
+          return { data: filteredData, error: undefined, meta: {} };
         } catch (error) {
-          return { data: [], error: error.message };
+          return { data: [], error: error as unknown as undefined, meta: {} };
         }
       },
     }),

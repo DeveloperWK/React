@@ -7,14 +7,20 @@ const Users = () => {
     isLoading,
     isError,
     error,
-  } = useGetUsersQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetUsersQuery({}, { refetchOnMountOrArgChange: true }) as ReturnType<
+    typeof useGetUsersQuery
+  >;
   if (isLoading) {
     return toast.info("Users Loading...");
   }
   if (isError) {
     return toast.error(`Users Data Error ${error.message}`);
   }
-
+  interface User {
+    id: string;
+    email: string;
+    role: string;
+  }
   return (
     <>
       <div>
@@ -23,7 +29,7 @@ const Users = () => {
         </h1>
         {!isLoading &&
           !isError &&
-          users?.map((user) => (
+          users?.map((user: User) => (
             <div
               key={user.id}
               className="p-3 border border-gray-400 rounded-lg w-1/4 mx-auto m-3 hover:scale-105 transition duration-300 ease-in-out "

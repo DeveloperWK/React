@@ -1,7 +1,7 @@
 import { Link, useRouteError } from "react-router";
 
 const Error = () => {
-  const error = useRouteError();
+  const error = useRouteError() as { status?: string };
 
   return (
     <>

@@ -5,7 +5,18 @@ import CustomButton from "../Components/CustomButton";
 import { emptyCart } from "../Features/cartSlice";
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cart);
+  const cartItems = useSelector(
+    (state: {
+      cart: {
+        id: string;
+        title: string;
+        description: string;
+        price: number;
+        quantity: number;
+        image: string;
+      }[];
+    }) => state.cart
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let totalPrice = 0;

@@ -8,11 +8,11 @@ const AddProduct = () => {
   const [addProducts] = useAddProductsMutation();
   const [addProduct, setAddProduct] = useState({
     title: "",
-    price: "",
+    price: 0,
     description: "",
     image: "",
     category: "",
-    stock: "",
+    stock: 0,
     tags: "",
   });
   const navigate = useNavigate();

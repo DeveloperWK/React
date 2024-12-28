@@ -9,7 +9,9 @@ import { toast } from "react-toastify";
 import CustomButton from "./CustomButton";
 
 const CheckOutForm = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(
+    (state: { cart: { price: number; quantity: number }[] }) => state.cart
+  );
   let totalPrice = 0;
   cart.forEach((item) => {
     totalPrice += item.price * item.quantity;
